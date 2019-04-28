@@ -1,18 +1,34 @@
 import { createAppContainer, createStackNavigator } from 'react-navigation';
 import PeoplePage from './src/pages/PeoplePage';
 import PeopleDetailPage from './src/pages/PeopleDetailPage';
+import { capitalizeFirsLetter } from './src/util';
 
 const AppNavigator = createStackNavigator({
   'Main': {
     screen: PeoplePage
   },
-  'PeopleDetail':{
-    screen: PeopleDetailPage
+
+  'PeopleDetail': {
+    screen: PeopleDetailPage,
+
+    navigationOptions: ({ navigation }) => {
+      const peopleName = navigation.state.params.people.name.first;
+      return (
+        {
+          title: peopleName,
+          headerTitleStyle: {
+            color: 'white',
+            fontSize: 30
+          }
+        });
+    }
   }
 }, {
     defaultNavigationOptions: {
-      title: 'Contato',
+      title: 'Pessoas',
+      headerTintColor: 'white',
       headerStyle: {
+
         backgroundColor: '#6ca2f7',
         borderBottomWidth: 1,
         borderBottomColor: '#C5C5C5'
@@ -20,7 +36,6 @@ const AppNavigator = createStackNavigator({
       headerTitleStyle: {
         color: 'white',
         fontSize: 30,
-
         flexGrow: 1,
         textAlign: 'center',
 

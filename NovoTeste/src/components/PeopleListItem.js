@@ -13,7 +13,10 @@ const PeopleListItem = props => {
     return (
         //this.props.navition.navigate('Chave da pagina / state');
 
-        <TouchableOpacity onPress={() => navigationToPeopleDetail()}>
+        <TouchableOpacity onPress={() => {
+            navigationToPeopleDetail({ people })
+        }}>
+
             <View style={styles.line}>
                 <Image style={styles.avatar} source={{ uri: people.picture.thumbnail }} />
                 <Text style={styles.lineText}>
