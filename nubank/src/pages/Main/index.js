@@ -71,7 +71,7 @@ export default function Main() {
             </CardHeader>
             <CardContent>
               <Title>Saldo disponível</Title>
-              <Description>R$ 200.000,00</Description>
+              <Description>R$ 193.321,22</Description>
             </CardContent>
             <CardFooter>
               <Annotation>Transferencia de R$ 20,00 Recebida de Patricia da silva lima, hoje às 10:00h; </Annotation>
