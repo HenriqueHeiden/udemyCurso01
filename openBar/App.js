@@ -1,6 +1,7 @@
 import{createAppContainer, createStackNavigator} from 'react-navigation';
 
 import LoginScreen from './src/page/LoginScreen';
+import SeriesPage from './src/pages/SeriesPage';
 
 const AppNavigator = createStackNavigator({
   'Login':{
@@ -9,6 +10,9 @@ const AppNavigator = createStackNavigator({
       title:'Bem Vindo !',      
     }
   },
+  'Main':{
+    screen: SeriesPage
+  }
 },{
   defaultNavigationOptions:{
     title: 'Series !',

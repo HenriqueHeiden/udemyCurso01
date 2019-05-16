@@ -53,6 +53,7 @@ export default class LoginPage extends React.Component {
 
         const loginUserSuccess = user => {
             this.setState({ message: "Sucesso!" });
+            this.props.navigation.navigate('Main');
         }
 
         const loginUserFailed = error => {
@@ -133,7 +134,7 @@ export default class LoginPage extends React.Component {
                         style={styles.input}
                         placeholder="user@mail.com"
                         value={this.state.mail}
-                        onChangeText={value => this.onChangeHandler('mail', value)}
+                        onChangeText={value => this.onChangeHandler('mail', value.trim())}
                     />
                 </FormRow>
                 <FormRow last>
