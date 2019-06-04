@@ -1,5 +1,5 @@
 {
-  "name": "openBar",
+  "name": "todos",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -7,24 +7,19 @@
     "test": "jest"
   },
   "dependencies": {
-    "firebase": "^6.1.0",
     "react": "16.8.3",
     "react-native": "0.59.8",
-    "react-native-gesture-handler": "^1.2.1",
-    "react-navigation": "^3.9.1",
     "react-redux": "^7.0.3",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "remote-redux-devtools": "^0.5.16"
+    "redux": "^4.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/runtime": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/runtime": "^7.4.5",
     "babel-jest": "^24.8.0",
     "jest": "^24.8.0",
-    "metro-react-native-babel-preset": "^0.54.0",
+    "metro-react-native-babel-preset": "^0.54.1",
     "react-test-renderer": "16.8.3",
-    "typescript": "^3.5.1"
+    "remote-redux-devtools": "^0.5.16"
   },
   "jest": {
     "preset": "react-native"
