@@ -10,11 +10,14 @@ import {
 } from 'react-native';
 import FormRow from '../components/FormRow';
 import firebase from 'firebase';
+
+import { connect } from 'react-redux';
+import { tryLogin } from '../actions';
 //import firebase from '@firebase/app';
 
 
 
-export default class LoginPage extends React.Component {
+class LoginPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -49,50 +52,27 @@ export default class LoginPage extends React.Component {
 
     tryLogin() {
         this.setState({ isLoading: true, message: '' });
-        const { mail, password } = this.state;
-
-        const loginUserSuccess = user => {
-            this.setState({ message: "Sucesso!" });
-            this.props.navigation.navigate('Main');
-        }
-
-        const loginUserFailed = error => {
+        const { mail: email, password } = this.state;
+        this.props.tryLogin({email, password})
+        .then( user =>{            
+            /*this.props.navigation.navigate('Main');*/
+            if(user){
+                return this.props.navigation.replace('Main');
+            }      
             this.setState({
+                isLoading: false,
+                message: ''
+            });    
+        }).catch(error => {
+            this.setState({
+                isLoading: false,
                 message: this.getMessageByErrorCode(error.code)
             });
-        }
-
-        firebase
-            .auth()
-            .signInWithEmailAndPassword(mail, password)
-            .then(loginUserSuccess).catch(error => {
-                if (error.code === 'auth/user-not-found') {
-                    Alert.alert('Usuario não encontrado',
-                        'Deseja criar o cadastro?',
-                        [{
-                            text: 'Não',
-                            onPress: () => { },
-                            style: 'cancel'
-                        }, {
-                            text: 'Sim',
-                            onPress: () => {
-                                firebase
-                                    .auth()
-                                    .createUserWithEmailAndPassword(mail, password)
-                                    .then(loginUserSuccess)
-                                    .catch(loginUserFailed)
-                            }
-                        }], { cancelable: false }
-                    )
-                    return;
-                }
-
-                loginUserFailed(error);
-       
-            }).then(() => this.setState({ isLoading: false }));
+        });
+        
     }
-    getMessageByErrorCode(erorrCode) {
-        switch (erorrCode) {
+    getMessageByErrorCode(errorCode) {
+        switch (errorCode) {
             case 'auth/wrong-password':
                 return 'Senha incorreta';
             case 'auth/user-not-found':
@@ -135,6 +115,8 @@ export default class LoginPage extends React.Component {
                         placeholder="user@mail.com"
                         value={this.state.mail}
                         onChangeText={value => this.onChangeHandler('mail', value.trim())}
+                        keyboardType = "email-address"/*Busca o @ para frente da tela*/
+                        autoCapitalize="none" /*Deixa o teclado em minusculo por padrao */
                     />
                 </FormRow>
                 <FormRow last>
@@ -168,3 +150,5 @@ const styles = StyleSheet.create({
         paddingBottom: 5
     }
 })
+
+export default  connect(null, { tryLogin })(LoginPage)
