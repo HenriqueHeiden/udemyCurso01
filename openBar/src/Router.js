@@ -4,38 +4,35 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 import LoginScreen from './page/LoginScreen';
 import SeriesPage from './page/SeriesPage';
 import SerieDetailPage from './page/SerieDetailPage';
+import SerieFormPage from './page/SerieFormPage';
 
 const AppNavigator = createStackNavigator({
-  'SerieDetail': {
-    screen: SerieDetailPage,
-    navigationOptions: ({ navigation }) => {
-      //const { serie } = navigation.state.params;
-      const serie = {
-        "id": 3,
-        "title": "Todo mundo odeia o Chris",
-        "gender": "Comédia",
-        "rate": 100,
-        "img":
-          "https://images-na.ssl-images-amazon.com/images/M/MV5BMTU2NTg4MTc5OF5BMl5BanBnXkFtZTcwMzc2MzYzMQ@@._V1_.jpg",
-        "description":
-          "Everybody Hates Chris (Todo Mundo Odeia o Chris (título no Brasil) ou Todos Contra o Chris (título em Portugal)) é uma série de televisão estadunidense de comédia dramática inspirado nas experiências pessoais de Chris Rock no bairro de Bed-Stuy, em Nova Iorque, seguindo um estilo muito parecido com a série Anos Incríveis."
-      }
-      return {
-        title: serie.title
-      }
-    }
-  },
 
-  'Main': {
-    screen: SeriesPage
-  },
+
   'Login': {
     screen: LoginScreen,
     navigationOptions: {
       title: 'Bem Vindo !',
     }
   },
-
+  'Main': {
+    screen: SeriesPage
+  },
+  'SerieFormPage': {
+    screen: SerieFormPage,
+    navigationOptions: {
+      title: 'Bem Vindo !',
+    }
+  },
+  'SerieDetail': {
+    screen: SerieDetailPage,
+    navigationOptions: ({ navigation }) => {
+      const { serie } = navigation.state.params;
+      return {
+        title: serie.title
+      }
+    }
+  },
 }, {
     defaultNavigationOptions: {
       title: 'Series !',
