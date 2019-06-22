@@ -26,25 +26,35 @@ export const watchSeries = () => {
     }
 }
 
-export const deletarSerie = serie => {
-    return dispatch => {
-        return new Promise((resolve, reject) => {
-            Alert.alert(
-                'Deletar',
-                `Deseja deletar a serie ${serie.title}`,
-                [{
-                    text: 'Não',
-                    onPress: () => { resolve(false) },
-                    style: 'cancel' //IOS
-                }, {
-                    text: 'Sim',
-                    onPress: () => {
-                        //Deleta a serie
-                        resolve(true)
-                    }
-                }],
-                { cancelable: false }
-            )
-        })
-    }
+export const deleteSerie = serie => {
+	return dispatch => {
+		return new Promise((resolve, reject) => {
+			Alert.alert(
+				'Deletar',
+				`Deseja deletar a serie ${serie.title}`,
+				[{
+					text: 'Não',
+					onPress: () => {
+						resolve(false);
+					},
+					style: 'cancel' // IOS
+				},{
+					text: 'Sim',
+					onPress: async () => {
+						const { currentUser } = firebase.auth();
+						try {
+							await firebase
+								.database()
+								.ref(`/users/${currentUser.uid}/series/${serie.id}`)
+								.remove();
+							resolve(true);
+						} catch(e) {
+							reject(e);
+						}
+					},
+				}],
+				{ cancelable: false }
+			)
+		})
+	}
 }

@@ -3,6 +3,9 @@ import { StyleSheet, ScrollView, Image, Button, View } from 'react-native';
 import Line from '../components/Line';
 import LongText from '../components/LongText';
 
+import { connect } from 'react-redux';
+import { deleteSerie } from '../actions'
+
 
 class SerieDetailPage extends React.Component {
     render() {
@@ -31,8 +34,11 @@ class SerieDetailPage extends React.Component {
                 <View style={styles.bnt}>  
                 <Button color="#FF0004FF" title="Deletar"
 
-                    onPress={() => {
-                        
+                    onPress={ async () => {
+                        const hasDeleted = await this.props.deleteSerie(serie);
+                        if(hasDeleted){
+                            navigation.goBack();
+                        }
                     }} />
                     </View>
 
@@ -51,4 +57,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default SerieDetailPage;
+export default connect(null, { deleteSerie })(SerieDetailPage);
