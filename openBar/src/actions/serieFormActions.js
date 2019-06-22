@@ -20,11 +20,24 @@ const serieSavedSucess = () => ({
     type: SERIE_SAVED_SUCESS
 });
 
+
+export const RESET_FORM = 'RESET_FORM'
+export const resetForm = () => ({
+    type: RESET_FORM
+});
+
 export const saveSerie = serie => {
     const { currentUser } = firebase.auth();
+    const db = firebase.database();
     return dispatch => {
-        //throw new Error('Erro he');
-        return firebase.database()
+        if(serie.id){
+            return db
+            .ref(`/users/${currentUser.uid}/series/${serie.id}`)
+            .set(serie)
+            .then(() => dispatch(serieSavedSucess()) )
+            .catch();
+        }
+        return db
             .ref(`/users/${currentUser.uid}/series`)
             .push(serie)
             .then(() => dispatch(serieSavedSucess()) )

@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import FormRow from '../components/FormRow';
 import { connect } from 'react-redux';
-import { setField, saveSerie, setWholeSerie } from '../actions'
+import { setField, saveSerie, setWholeSerie, resetForm } from '../actions'
 
 class SerieFormPage extends React.Component {
     constructor(props) {
@@ -23,12 +23,14 @@ class SerieFormPage extends React.Component {
             isLoading: false,
         }
     }
-    componentDidMount(){      
-       const { navigation, setWholeSerie } = this.props;
-       const { params } = navigation.state;
-       if(params && params.serieToEdit){
-           setWholeSerie(params.serieToEdit);
-       }
+    componentDidMount() {
+        const { navigation, setWholeSerie, resetForm } = this.props;
+        const { params } = navigation.state;
+        if (params && params.serieToEdit) {
+            return setWholeSerie(params.serieToEdit);
+        }
+        return resetForm();
+
     }
 
     render() {
@@ -106,14 +108,14 @@ class SerieFormPage extends React.Component {
                                     try {
                                         saveSerie(serieForm);
                                         navigation.goBack();
-                                    }  catch(Error){          
+                                    } catch (Error) {
                                         Alert.alert('Erro!', "Um erro ocorreceu");
-                                    } finally{
+                                    } finally {
                                         this.setState({ isLoading: false });
                                     }
 
-                                   
-                                    
+
+
 
                                 }} />
                     }
@@ -150,7 +152,8 @@ function mapStateToProps(state) {
 const mapDispatchToProps = {
     setField,
     saveSerie,
-    setWholeSerie
+    setWholeSerie,
+    resetForm
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SerieFormPage);

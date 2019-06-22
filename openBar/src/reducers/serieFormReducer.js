@@ -1,8 +1,9 @@
-import { SET_FIELD, SERIE_SAVED_SUCESS, SET_WHOLE_SERIE } from '../actions';
+import { SET_FIELD, SERIE_SAVED_SUCESS, SET_WHOLE_SERIE, RESET_FORM } from '../actions';
 
 const INITIAL_STATE = {
+    id: null,
     title: '',
-    gender: 'police',
+    gender: 'Policial',
     rate: 0,
     img: '',
     description: ''
@@ -16,6 +17,7 @@ export default function (state = INITIAL_STATE, action) {
             return newState;
         case SET_WHOLE_SERIE:
             return action.serie
+        case RESET_FORM:
         case SERIE_SAVED_SUCESS:
             return INITIAL_STATE;
         default:
