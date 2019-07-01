@@ -1,0 +1,3 @@
+expo init expoCamera
+pause
+
